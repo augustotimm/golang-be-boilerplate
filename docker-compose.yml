@@ -7,15 +7,17 @@ services:
       dockerfile: ./Dockerfile.local
     restart: unless-stopped
     networks:
-      - go-api-store-network
+      - go-api-network
     environment:
       API_PORT: 5555
       DATABASE_HOST: go-store
       DATABASE_PORT: 5432
       DATABASE_USERNAME: root
       DATABASE_PASSWORD: root
-      DATABASE_NAME: goApiStoreDB
+      DATABASE_NAME: hrtools
       GIN_MODE: release
+      GOOSE_DRIVER: postgres
+      GOOSE_DBSTRING: ${GOOSE_DRIVER}://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
     ports:
       - 5555:5555
     depends_on:
@@ -28,19 +30,19 @@ services:
     environment:
       POSTGRES_USER: 'root'
       POSTGRES_PASSWORD: 'root'
+      POSTGRES_DB: hrtools
     volumes:
       - postgres:/var/lib/postgresql/data
       - ./src/infrastructure/database/scripts/create-database.sql:/docker-entrypoint-initdb.d/create-database.sql
     ports:
       - '5432:5432'
     networks:
-      - go-api-store-network
+      - go-api-network
 
 volumes:
   postgres:
 
 
 networks:
-  go-api-store-network:
-    name: go-api-store
+  go-api-network:
     driver: bridge

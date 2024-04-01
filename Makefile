@@ -36,3 +36,6 @@ docker-up-orm:
 
 docker-down:
 	docker-compose down --rmi all
+
+migrate-up:
+	goose migrate up
