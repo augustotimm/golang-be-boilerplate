@@ -3,9 +3,9 @@ package tests
 import (
 	"bytes"
 	"encoding/json"
-	healthCheckController "go-api-store-boilerplate/src/application/api/controllers/health-check"
-	healthCheckControllerModels "go-api-store-boilerplate/src/application/api/controllers/health-check/models"
-	presenterJsonModels "go-api-store-boilerplate/src/application/api/presenters/models"
+	healthCheckController "go-be-boilerplate/src/application/api/controllers/health-check"
+	healthCheckControllerModels "go-be-boilerplate/src/application/api/controllers/health-check/models"
+	presenterJsonModels "go-be-boilerplate/src/application/api/presenters/models"
 	"net/http"
 	"net/http/httptest"
 	"testing"

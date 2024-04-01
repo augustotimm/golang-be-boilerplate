@@ -2,7 +2,7 @@ package database
 
 import (
 	"fmt"
-	config "go-api-store-boilerplate/src/application/config/models/contexts"
+	config "go-be-boilerplate/src/application/config/models/contexts"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

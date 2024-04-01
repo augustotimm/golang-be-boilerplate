@@ -1,4 +1,4 @@
-module go-api-store-boilerplate
+module go-be-boilerplate
 
 go 1.21.1
 

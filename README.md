@@ -1,4 +1,4 @@
-# vai-ts-go-api-store-boilerplate
+# vai-ts-go-be-boilerplate
 
 Component boilerplate for Go Lang.
 

@@ -1,9 +1,9 @@
 package main
 
 import (
-	"go-api-store-boilerplate/src/application/config"
-	"go-api-store-boilerplate/src/core/entities"
-	"go-api-store-boilerplate/src/infrastructure/database"
+	"go-be-boilerplate/src/application/config"
+	"go-be-boilerplate/src/core/entities"
+	"go-be-boilerplate/src/infrastructure/database"
 )
 
 func main() {

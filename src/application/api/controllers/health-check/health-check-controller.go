@@ -1,10 +1,9 @@
 package healthCheckController
 
 import (
-	models "go-api-store-boilerplate/src/application/api/controllers/health-check/models"
-	"go-api-store-boilerplate/src/application/api/presenters"
-
 	"github.com/gin-gonic/gin"
+	models "go-be-boilerplate/src/application/api/controllers/health-check/models"
+	"go-be-boilerplate/src/application/api/presenters"
 )
 
 type HealthCheckController struct {
@@ -12,15 +11,17 @@ type HealthCheckController struct {
 }
 
 func (hc HealthCheckController) GetIndex(ctx *gin.Context) {
-	response := hc.JsonPresenter.Envelope("Server running!")
+	payload := models.HealthCheck{Message: "Server running!"}
+
+	response := hc.JsonPresenter.Envelope(&payload)
 
 	ctx.JSON(200, response)
 }
 
 func (hc HealthCheckController) PostWebHook(ctx *gin.Context) {
-	var req models.WebHookModel
+	var req *models.WebHookModel
 	req.Method = "POST"
-	ctx.BindJSON(&req.Content)
+	ctx.BindJSON(req.Content)
 
 	response := hc.JsonPresenter.Envelope(req)
 

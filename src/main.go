@@ -1,9 +1,9 @@
 package main
 
 import (
-	"go-api-store-boilerplate/src/application/api"
-	"go-api-store-boilerplate/src/application/config"
-	"go-api-store-boilerplate/src/infrastructure/database"
+	"go-be-boilerplate/src/application/api"
+	"go-be-boilerplate/src/application/config"
+	"go-be-boilerplate/src/infrastructure/database"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,6 +14,6 @@ func main() {
 	db := database.Connect(config.Database)
 
 	ginApp := gin.Default()
-	api.Api(ginApp, db)
+	api.Setup(ginApp, db)
 	api.Server(config.Api.Port, ginApp)
 }

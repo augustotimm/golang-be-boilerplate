@@ -1,9 +1,9 @@
 package tests
 
 import (
-	ConfigContexts "go-api-store-boilerplate/src/application/config/models/contexts"
-	"go-api-store-boilerplate/src/infrastructure/database"
-	dbCleanUp "go-api-store-boilerplate/tests/db"
+	ConfigContexts "go-be-boilerplate/src/application/config/models/contexts"
+	"go-be-boilerplate/src/infrastructure/database"
+	dbCleanUp "go-be-boilerplate/tests/db"
 	"os"
 	"testing"
 

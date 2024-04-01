@@ -2,7 +2,7 @@ package config
 
 import (
 	"fmt"
-	config "go-api-store-boilerplate/src/application/config/models"
+	config "go-be-boilerplate/src/application/config/models"
 	"os"
 )
 
