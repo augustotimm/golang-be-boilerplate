@@ -37,5 +37,8 @@ docker-up-orm:
 docker-down:
 	docker-compose down --rmi all
 
+install-goose:
+	 go install github.com/pressly/goose/v3/cmd/goose@latest
+
 migrate-up:
 	goose migrate up

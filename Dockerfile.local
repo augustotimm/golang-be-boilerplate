@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY . .
 
+RUN make install-goose && make migrate-up
 RUN make download && make build
 
 ENTRYPOINT ["/app/bin/main"]
