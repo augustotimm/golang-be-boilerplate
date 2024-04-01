@@ -1,21 +1,21 @@
 package helloWorldController
 
 import (
+	"database/sql"
 	"go-be-boilerplate/src/application/api/presenters"
 	"go-be-boilerplate/src/core/entities"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
 type HelloWorldController struct {
-	DB            *gorm.DB
+	DB            *sql.DB
 	JsonPresenter presenters.JsonPresenter
 }
 
 func (hw HelloWorldController) List(ctx *gin.Context) {
 	var users []*entities.HelloWorldEntity
-	hw.DB.Find(&users)
+	// hw.DB.Find(&users)update to sqlboiler
 
 	payload := make([]presenters.ApiReturnModel, len(users))
 
@@ -30,7 +30,7 @@ func (hw HelloWorldController) List(ctx *gin.Context) {
 
 func Handler(
 	ginApp *gin.Engine,
-	db *gorm.DB,
+	db *sql.DB,
 	jsonPresenter *presenters.JsonPresenter,
 ) {
 	helloWorldController := HelloWorldController{

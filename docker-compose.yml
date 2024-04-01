@@ -36,22 +36,6 @@ services:
     networks:
       - go-api-store-network
 
-  go-orm:
-    container_name: go-orm
-    build:
-      context: .
-      dockerfile: ./Dockerfile.orm
-    networks:
-      - go-api-store-network
-    environment:
-      DATABASE_HOST: go-store
-      DATABASE_PORT: 5432
-      DATABASE_USERNAME: root
-      DATABASE_PASSWORD: root
-      DATABASE_NAME: goApiStoreDB
-    depends_on:
-      - go-store
-
 volumes:
   postgres:
 

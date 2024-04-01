@@ -1,19 +1,21 @@
 package main
 
 import (
+	"github.com/gin-gonic/gin"
 	"go-be-boilerplate/src/application/api"
 	"go-be-boilerplate/src/application/config"
-	"go-be-boilerplate/src/infrastructure/database"
-
-	"github.com/gin-gonic/gin"
+	"go-be-boilerplate/src/application/orm"
 )
 
 func main() {
-	config := config.Config()
+	envConfig := config.Config()
 
-	db := database.Connect(config.Database)
+	db, err := orm.ConnectDatabase()
+	if err != nil {
+		panic("error connecting to Database")
+	}
 
 	ginApp := gin.Default()
 	api.Setup(ginApp, db)
-	api.Server(config.Api.Port, ginApp)
+	api.Server(envConfig.Api.Port, ginApp)
 }
