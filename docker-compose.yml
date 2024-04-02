@@ -21,10 +21,10 @@ services:
     ports:
       - 5555:5555
     depends_on:
-      - go-store
+      - db
 
-  go-store:
-    container_name: go-store
+  db:
+    container_name: go-api-db
     image: postgres:14
     restart: always
     environment:
