@@ -18,16 +18,6 @@ func (hc HealthCheckController) GetIndex(ctx *gin.Context) {
 	ctx.JSON(200, response)
 }
 
-func (hc HealthCheckController) PostWebHook(ctx *gin.Context) {
-	var req *models.WebHookModel
-	req.Method = "POST"
-	ctx.BindJSON(req.Content)
-
-	response := hc.JsonPresenter.Envelope(req)
-
-	ctx.JSON(200, response)
-}
-
 func Handler(
 	ginApp *gin.Engine,
 	jsonPresenter *presenters.JsonPresenter,
@@ -37,5 +27,4 @@ func Handler(
 	}
 
 	ginApp.GET("/", healthCheckController.GetIndex)
-	ginApp.POST("/", healthCheckController.PostWebHook)
 }

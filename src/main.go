@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-be-boilerplate/src/application/api"
 	"go-be-boilerplate/src/application/config"
-	"go-be-boilerplate/src/application/orm"
+	"go-be-boilerplate/src/core/orm"
 )
 
 func main() {
