@@ -1,17 +1,19 @@
 package tests
 
 import (
-	ConfigContexts "backend-boilerplate/src/application/config/models/contexts"
-	"backend-boilerplate/src/infrastructure/database"
 	dbCleanUp "backend-boilerplate/tests/db"
 	"database/sql"
+	"github.com/DATA-DOG/go-sqlmock"
+	"log"
 	"os"
 	"testing"
 )
 
 var db *sql.DB
+var mockDB sqlmock.Sqlmock
 
 func TestMain(m *testing.M) {
+	setup()
 	setup()
 	code := m.Run()
 	teardown()
@@ -19,15 +21,11 @@ func TestMain(m *testing.M) {
 }
 
 func setup() {
-	localConfig := ConfigContexts.DatabaseConfig{
-		Host:     "localhost",
-		Port:     "5432",
-		Username: "root",
-		Password: "root",
-		Name:     "postgres",
+	var err error
+	db, mockDB, err = sqlmock.New()
+	if err != nil {
+		log.Fatalf("an error '%s' was not expected when opening a stub database connection", err)
 	}
-
-	db = database.Connect(localConfig)
 
 	dbCleanUp.Run(db)
 }

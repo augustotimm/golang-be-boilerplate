@@ -3,6 +3,8 @@ module backend-boilerplate
 go 1.22.1
 
 require (
+	github.com/DATA-DOG/go-sqlmock v1.4.1
+	github.com/fatih/structs v1.1.0
 	github.com/friendsofgo/errors v0.9.2
 	github.com/gin-gonic/gin v1.9.1
 	github.com/joho/godotenv v1.5.1

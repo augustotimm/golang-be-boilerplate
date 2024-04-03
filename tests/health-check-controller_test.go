@@ -18,12 +18,12 @@ import (
 func TestHealthCheckController(t *testing.T) {
 	_assert := assert.New(t)
 
-	healthCheckController := &healthCheckController.HealthCheckController{}
+	controller := &healthCheckController.HealthCheckController{}
 
 	t.Run("Should receive 200 from GET /", func(t *testing.T) {
-		gin.SetMode(gin.ReleaseMode)
+		gin.SetMode(gin.TestMode)
 		router := gin.New()
-		router.GET("/", healthCheckController.GetIndex)
+		router.GET("/", controller.GetIndex)
 
 		w := httptest.NewRecorder()
 		req, _ := http.NewRequest("GET", "/", nil)

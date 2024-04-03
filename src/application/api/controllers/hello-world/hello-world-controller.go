@@ -16,7 +16,6 @@ type HelloWorldController struct {
 }
 
 func (hw HelloWorldController) List(ctx *gin.Context) {
-	var helloWorldExample []*models.HelloWorldEntity
 	helloWorldExample, queryErr := models.HelloWorldEntities().All(context.Background(), hw.DB)
 
 	if queryErr != nil {
