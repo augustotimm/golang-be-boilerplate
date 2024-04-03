@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	helloWorldController "go-be-boilerplate/src/application/api/controllers/hello-world"
 	presenterJsonModels "go-be-boilerplate/src/application/api/presenters/models"
-	"go-be-boilerplate/src/core/entities"
 	"net/http"
 	"net/http/httptest"
 	"testing"

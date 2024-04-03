@@ -40,5 +40,5 @@ docker-down:
 install-goose:
 	 go install github.com/pressly/goose/v3/cmd/goose@latest
 
-migrate-up:
-	goose migrate up
+models:
+	sqlboiler psql -c "./.config/sqlboiler.toml" -o "./src/application/orm/models/" --wipe --no-tests

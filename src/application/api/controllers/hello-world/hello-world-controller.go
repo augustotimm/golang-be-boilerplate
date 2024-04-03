@@ -2,10 +2,8 @@ package helloWorldController
 
 import (
 	"database/sql"
-	"go-be-boilerplate/src/application/api/presenters"
-	"go-be-boilerplate/src/core/entities"
-
 	"github.com/gin-gonic/gin"
+	"go-be-boilerplate/src/application/api/presenters"
 )
 
 type HelloWorldController struct {

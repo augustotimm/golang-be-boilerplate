@@ -1,0 +1,13 @@
+output   = "models"
+wipe     = true
+no-tests = true
+add-enum-types = true
+
+[psql]
+dbname = "hrtools"
+port = 5432
+host = "localhost"
+user = "root"
+pass = "root"
+sslmode = "disable"
+blacklist = ["goose_db_version"]
