@@ -1,14 +1,13 @@
 package database
 
 import (
+	config "backend-boilerplate/src/application/config/models/contexts"
+	"database/sql"
 	"fmt"
-	config "go-be-boilerplate/src/application/config/models/contexts"
-
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
+	_ "github.com/lib/pq"
 )
 
-func Connect(dbConfig config.DatabaseConfig) *gorm.DB {
+func Connect(dbConfig config.DatabaseConfig) *sql.DB {
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
 		dbConfig.Host,
 		dbConfig.Username,
@@ -17,7 +16,7 @@ func Connect(dbConfig config.DatabaseConfig) *gorm.DB {
 		dbConfig.Port,
 	)
 
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := sql.Open("postgres", dsn)
 
 	if err != nil {
 		panic("failed to connect database")

@@ -1,12 +1,20 @@
 package config
 
 import (
+	config "backend-boilerplate/src/application/config/models"
 	"fmt"
-	config "go-be-boilerplate/src/application/config/models"
+	"github.com/joho/godotenv"
+	"log"
 	"os"
 )
 
 func Config() config.ConfigModel {
+	err := godotenv.Load("../.config/local.env")
+	if err != nil {
+		log.Println(err)
+		log.Fatal("Error loading .env file")
+	}
+
 	var configModel config.ConfigModel
 
 	apiPort := os.Getenv("API_PORT")
