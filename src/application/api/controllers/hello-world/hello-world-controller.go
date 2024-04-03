@@ -1,6 +1,7 @@
 package helloWorldController
 
 import (
+	helloWorldModel "backend-boilerplate/src/application/api/controllers/hello-world/models"
 	"backend-boilerplate/src/application/api/presenters"
 	"backend-boilerplate/src/core/orm/models"
 	"context"
@@ -23,7 +24,9 @@ func (hw HelloWorldController) List(ctx *gin.Context) {
 		ctx.Status(http.StatusInternalServerError)
 	}
 
-	response := hw.JsonPresenter.Envelope(helloWorldExample)
+	presenterList := helloWorldModel.InitListFromModelSlice(helloWorldExample)
+
+	response := hw.JsonPresenter.Envelope(presenterList)
 
 	ctx.JSON(200, response)
 }

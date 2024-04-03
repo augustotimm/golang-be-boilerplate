@@ -2,7 +2,6 @@ package models
 
 import (
 	"backend-boilerplate/src/core/orm/models"
-	"encoding/json"
 )
 
 type HelloWorldPresenter struct {
@@ -10,15 +9,17 @@ type HelloWorldPresenter struct {
 	Name string `json:"name"`
 }
 
-func (presenter *HelloWorldPresenter) JsonMarshal() []byte {
-	encoded, err := json.Marshal(presenter)
-	if err != nil {
-		return nil
-	}
-	return encoded
-}
-
 func (presenter *HelloWorldPresenter) InitFromModel(entity models.HelloWorldEntity) {
 	presenter.ID = entity.ID
 	presenter.Name = entity.Name.String
+}
+
+func InitListFromModelSlice(modelSlice models.HelloWorldEntitySlice) []HelloWorldPresenter {
+	presenterSlice := make([]HelloWorldPresenter, len(modelSlice))
+	for _, entity := range modelSlice {
+		var presenter HelloWorldPresenter
+		presenter.InitFromModel(*entity)
+		presenterSlice = append(presenterSlice, presenter)
+	}
+	return presenterSlice
 }

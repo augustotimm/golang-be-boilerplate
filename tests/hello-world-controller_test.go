@@ -32,6 +32,11 @@ func TestHelloWorldController(t *testing.T) {
 
 		expectedUsers := []interface{}([]interface{}{})
 
+		columns := getEntityColumns()
+		queryRows := sqlmock.NewRows(columns)
+
+		mockDB.ExpectQuery("SELECT (.+)").WillReturnRows(queryRows)
+
 		w := httptest.NewRecorder()
 		req, _ := http.NewRequest("GET", "/hello-world", nil)
 		router.ServeHTTP(w, req)
