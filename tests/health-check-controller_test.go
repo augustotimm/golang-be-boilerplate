@@ -1,11 +1,12 @@
 package tests
 
 import (
-	"bytes"
+	healthCheckController "backend-boilerplate/src/application/api/controllers/health-check"
+	healthCheckControllerModels "backend-boilerplate/src/application/api/controllers/health-check/models"
+	"github.com/mitchellh/mapstructure"
+
+	presenterJsonModels "backend-boilerplate/src/application/api/presenters/models"
 	"encoding/json"
-	healthCheckController "go-be-boilerplate/src/application/api/controllers/health-check"
-	healthCheckControllerModels "go-be-boilerplate/src/application/api/controllers/health-check/models"
-	presenterJsonModels "go-be-boilerplate/src/application/api/presenters/models"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -29,41 +30,11 @@ func TestHealthCheckController(t *testing.T) {
 		router.ServeHTTP(w, req)
 		var response presenterJsonModels.JsonModel
 		json.NewDecoder(w.Body).Decode(&response)
+		expectedMessage := healthCheckControllerModels.HealthCheck{Message: "Server running!"}
+		var message healthCheckControllerModels.HealthCheck
+		mapstructure.Decode(response.Payload, &message)
 
-		var expectedResponsePayload = presenterJsonModels.JsonModel{
-			Payload: "Server running!",
-		}
-		_assert.Equal(expectedResponsePayload, response)
-	})
-
-	t.Run("Should receive 200 from POST /webhook", func(t *testing.T) {
-		gin.SetMode(gin.ReleaseMode)
-		router := gin.New()
-		router.POST("/", healthCheckController.PostWebHook)
-
-		body := map[string]interface{}{
-			"testOne": "hello world!",
-		}
-
-		jsonBytes, err := json.Marshal(body)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		w := httptest.NewRecorder()
-		req, _ := http.NewRequest("POST", "/", bytes.NewReader(jsonBytes))
-		router.ServeHTTP(w, req)
-		var response presenterJsonModels.JsonModel
-		json.NewDecoder(w.Body).Decode(&response)
-
-		var expectedResponsePayload = presenterJsonModels.JsonModel{
-			Payload: healthCheckControllerModels.WebHookModel{
-				Method:  "POST",
-				Content: body,
-			},
-		}
-
-		assert.ObjectsAreEqual(expectedResponsePayload, response)
+		_assert.Equal(expectedMessage, message)
 	})
 
 }

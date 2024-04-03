@@ -1,11 +1,11 @@
 package api
 
 import (
+	healthCheckController "backend-boilerplate/src/application/api/controllers/health-check"
+	helloWorldController "backend-boilerplate/src/application/api/controllers/hello-world"
+	"backend-boilerplate/src/application/api/presenters"
 	"database/sql"
 	"fmt"
-	healthCheckController "go-be-boilerplate/src/application/api/controllers/health-check"
-	helloWorldController "go-be-boilerplate/src/application/api/controllers/hello-world"
-	"go-be-boilerplate/src/application/api/presenters"
 
 	"github.com/gin-gonic/gin"
 )

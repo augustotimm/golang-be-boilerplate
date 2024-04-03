@@ -1,9 +1,9 @@
 package healthCheckController
 
 import (
+	models "backend-boilerplate/src/application/api/controllers/health-check/models"
+	"backend-boilerplate/src/application/api/presenters"
 	"github.com/gin-gonic/gin"
-	models "go-be-boilerplate/src/application/api/controllers/health-check/models"
-	"go-be-boilerplate/src/application/api/presenters"
 )
 
 type HealthCheckController struct {
@@ -13,7 +13,7 @@ type HealthCheckController struct {
 func (hc HealthCheckController) GetIndex(ctx *gin.Context) {
 	payload := models.HealthCheck{Message: "Server running!"}
 
-	response := hc.JsonPresenter.Envelope(&payload)
+	response := hc.JsonPresenter.Envelope(payload)
 
 	ctx.JSON(200, response)
 }

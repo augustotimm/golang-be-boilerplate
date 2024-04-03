@@ -1,16 +1,15 @@
 package tests
 
 import (
-	ConfigContexts "go-be-boilerplate/src/application/config/models/contexts"
-	"go-be-boilerplate/src/infrastructure/database"
-	dbCleanUp "go-be-boilerplate/tests/db"
+	ConfigContexts "backend-boilerplate/src/application/config/models/contexts"
+	"backend-boilerplate/src/infrastructure/database"
+	dbCleanUp "backend-boilerplate/tests/db"
+	"database/sql"
 	"os"
 	"testing"
-
-	"gorm.io/gorm"
 )
 
-var db *gorm.DB
+var db *sql.DB
 
 func TestMain(m *testing.M) {
 	setup()
@@ -25,7 +24,7 @@ func setup() {
 		Port:     "5432",
 		Username: "root",
 		Password: "root",
-		Name:     "goApiStoreDB",
+		Name:     "postgres",
 	}
 
 	db = database.Connect(localConfig)

@@ -1,9 +1,9 @@
 package tests
 
 import (
-	"gorm.io/gorm"
+	"database/sql"
 )
 
-func Run(db *gorm.DB) {
+func Run(db *sql.DB) {
 	db.Exec("DELETE FROM hello_world_entities")
 }

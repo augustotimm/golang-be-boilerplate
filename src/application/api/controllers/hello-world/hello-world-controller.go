@@ -1,13 +1,12 @@
 package helloWorldController
 
 import (
+	"backend-boilerplate/src/application/api/presenters"
+	"backend-boilerplate/src/core/orm/models"
 	"context"
 	"database/sql"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	modelsPresenter "go-be-boilerplate/src/application/api/controllers/hello-world/models"
-	"go-be-boilerplate/src/application/api/presenters"
-	"go-be-boilerplate/src/core/orm/models"
 	"net/http"
 )
 
@@ -25,9 +24,7 @@ func (hw HelloWorldController) List(ctx *gin.Context) {
 		ctx.Status(http.StatusInternalServerError)
 	}
 
-	presenterList := modelsPresenter.CastModelListToPresenter(helloWorldExample)
-
-	response := hw.JsonPresenter.EnvelopeList(presenterList)
+	response := hw.JsonPresenter.Envelope(helloWorldExample)
 
 	ctx.JSON(200, response)
 }
