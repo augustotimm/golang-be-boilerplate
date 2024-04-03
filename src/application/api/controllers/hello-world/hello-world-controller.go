@@ -1,10 +1,14 @@
 package helloWorldController
 
 import (
+	"context"
 	"database/sql"
+	"fmt"
 	"github.com/gin-gonic/gin"
-	"go-be-boilerplate/src/application/api/controllers/hello-world/models"
+	modelsPresenter "go-be-boilerplate/src/application/api/controllers/hello-world/models"
 	"go-be-boilerplate/src/application/api/presenters"
+	"go-be-boilerplate/src/core/orm/models"
+	"net/http"
 )
 
 type HelloWorldController struct {
@@ -13,16 +17,17 @@ type HelloWorldController struct {
 }
 
 func (hw HelloWorldController) List(ctx *gin.Context) {
-	var users []*models.HelloWorldPresenter
-	// hw.DB.Find(&users)update to sqlboiler
+	var helloWorldExample []*models.HelloWorldEntity
+	helloWorldExample, queryErr := models.HelloWorldEntities().All(context.Background(), hw.DB)
 
-	payload := make([]presenters.ApiPresenter, len(users))
-
-	for _, entity := range users {
-		payload = append(payload, entity.CastToApiReturnModel())
+	if queryErr != nil {
+		fmt.Println(queryErr)
+		ctx.Status(http.StatusInternalServerError)
 	}
 
-	response := hw.JsonPresenter.EnvelopeList(payload)
+	presenterList := modelsPresenter.CastModelListToPresenter(helloWorldExample)
+
+	response := hw.JsonPresenter.EnvelopeList(presenterList)
 
 	ctx.JSON(200, response)
 }
