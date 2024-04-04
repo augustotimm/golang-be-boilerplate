@@ -9,7 +9,7 @@ import (
 )
 
 func Config() config.ConfigModel {
-	err := godotenv.Load("../.config/local.env")
+	err := godotenv.Load("/home/timm/repos/golang-be-boilerplate/.config/local.env")
 	if err != nil {
 		log.Println(err)
 		log.Fatal("Error loading .env file")

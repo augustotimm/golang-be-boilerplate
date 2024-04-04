@@ -1,0 +1,15 @@
+basePath: /api/v1
+host: localhost:1337
+info:
+  contact:
+    email: augusto.timm@gmail.com
+    name: Augusto Timm
+    url: https://github.com/augustotimm
+  description: A complete boilerplate in golang using gin framework
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Backend BoilerPlate
+  version: "1.0"
+paths: {}
+swagger: "2.0"
