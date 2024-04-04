@@ -3,6 +3,7 @@ package healthCheckController
 import (
 	models "backend-boilerplate/src/application/api/controllers/health-check/models"
 	"backend-boilerplate/src/application/api/presenters"
+	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,10 +22,11 @@ func (hc HealthCheckController) GetIndex(ctx *gin.Context) {
 func Handler(
 	ginApp *gin.Engine,
 	jsonPresenter *presenters.JsonPresenter,
+	baseApiAddress string,
 ) {
 	healthCheckController := HealthCheckController{
 		JsonPresenter: *jsonPresenter,
 	}
-
-	ginApp.GET("/", healthCheckController.GetIndex)
+	apiAddress := fmt.Sprintf("%s/health-check", baseApiAddress)
+	ginApp.GET(apiAddress, healthCheckController.GetIndex)
 }

@@ -3,6 +3,7 @@ package tests
 import (
 	helloWorldController "backend-boilerplate/src/application/api/controllers/hello-world"
 	helloWorldControllerModels "backend-boilerplate/src/application/api/controllers/hello-world/models"
+	mockDB "backend-boilerplate/tests/mock-db"
 
 	presenterJsonModels "backend-boilerplate/src/application/api/presenters/models"
 	"backend-boilerplate/src/core/orm/models"
@@ -22,10 +23,10 @@ func TestHelloWorldController(t *testing.T) {
 	_assert := assert.New(t)
 
 	controller := &helloWorldController.HelloWorldController{
-		DB: db,
+		DB: mockDB.DB,
 	}
 
-	t.Run("Should receive 200 with empty users from GET /hello-world", func(t *testing.T) {
+	t.Run("Should receive 200 with empty entities from GET /hello-world", func(t *testing.T) {
 		gin.SetMode(gin.TestMode)
 		router := gin.New()
 		router.GET("/hello-world", controller.List)
@@ -35,11 +36,12 @@ func TestHelloWorldController(t *testing.T) {
 		columns := getEntityColumns()
 		queryRows := sqlmock.NewRows(columns)
 
-		mockDB.ExpectQuery("SELECT (.+)").WillReturnRows(queryRows)
+		mockDB.Mock.ExpectQuery("SELECT (.+)").WillReturnRows(queryRows)
 
 		w := httptest.NewRecorder()
 		req, _ := http.NewRequest("GET", "/hello-world", nil)
 		router.ServeHTTP(w, req)
+
 		var response presenterJsonModels.JsonModel
 		json.NewDecoder(w.Body).Decode(&response)
 
@@ -58,7 +60,7 @@ func TestHelloWorldController(t *testing.T) {
 		columns := getEntityColumns()
 		queryRows := sqlmock.NewRows(columns).AddRow(sampleEntity.ID, sampleEntity.Name)
 
-		mockDB.ExpectQuery("SELECT (.+)").WillReturnRows(queryRows)
+		mockDB.Mock.ExpectQuery("SELECT (.+)").WillReturnRows(queryRows)
 
 		w := httptest.NewRecorder()
 		req, _ := http.NewRequest("GET", "/hello-world", nil)
@@ -69,7 +71,9 @@ func TestHelloWorldController(t *testing.T) {
 		var message []helloWorldControllerModels.HelloWorldPresenter
 		mapstructure.Decode(response.Payload, &message)
 
-		_assert.Equal(message[0], sampleEntity)
+		_assert.Equal(sampleEntity, message[0])
+		_assert.Equal(1, len(message))
+
 	})
 
 }

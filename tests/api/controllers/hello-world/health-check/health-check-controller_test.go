@@ -1,4 +1,4 @@
-package tests
+package health_check
 
 import (
 	healthCheckController "backend-boilerplate/src/application/api/controllers/health-check"
