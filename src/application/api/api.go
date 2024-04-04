@@ -1,6 +1,7 @@
 package api
 
 import (
+	"backend-boilerplate/docs"
 	_ "backend-boilerplate/docs"
 	healthCheckController "backend-boilerplate/src/application/api/controllers/health-check"
 	helloWorldController "backend-boilerplate/src/application/api/controllers/hello-world"
@@ -24,15 +25,14 @@ import (
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
 
 // @host      localhost:1337
-// @BasePath  /api/v1
 
 func Setup(ginApp *gin.Engine, db *sql.DB) {
 	jsonPresenter := &presenters.JsonPresenter{}
 	baseApiAddress := "/api/v1"
-	healthCheckController.Handler(ginApp, jsonPresenter, baseApiAddress)
-	helloWorldController.Handler(ginApp, db, jsonPresenter)
-	ginApp.GET("/api/v1/docs/swagger", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	ginApp.Run()
+	docs.SwaggerInfo.BasePath = baseApiAddress
+	healthCheckController.Handler(ginApp, jsonPresenter, baseApiAddress)
+	helloWorldController.Handler(ginApp, db, jsonPresenter, baseApiAddress)
+	ginApp.GET("/api/v1/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	fmt.Println("API OK!")
 }

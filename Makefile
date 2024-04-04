@@ -42,3 +42,6 @@ install-goose:
 
 models:
 	sqlboiler psql -c "./.config/sqlboiler.toml" -o "./src/application/orm/models/" --wipe --no-tests
+
+swagger-docs:
+	 swag init -g api.go --dir ./src/application/api

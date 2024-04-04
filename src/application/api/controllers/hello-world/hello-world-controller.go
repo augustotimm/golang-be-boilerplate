@@ -16,6 +16,13 @@ type HelloWorldController struct {
 	JsonPresenter presenters.JsonPresenter
 }
 
+// List Hello World backend-boilerplate
+// Lists data structure from database
+// @Summary Simple list data example
+// @Produce json
+// @Success 200 {array} helloWorldModel.HelloWorldPresenter
+// @Failure 404 {string} string
+// @Router /hello-world [get]
 func (hw HelloWorldController) List(ctx *gin.Context) {
 	helloWorldExample, queryErr := models.HelloWorldEntities().All(context.Background(), hw.DB)
 
@@ -35,11 +42,13 @@ func Handler(
 	ginApp *gin.Engine,
 	db *sql.DB,
 	jsonPresenter *presenters.JsonPresenter,
+	baseApiAddress string,
 ) {
 	helloWorldController := HelloWorldController{
 		DB:            db,
 		JsonPresenter: *jsonPresenter,
 	}
 
-	ginApp.GET("/hello-world", helloWorldController.List)
+	apiAddress := fmt.Sprintf("%s/health-check", baseApiAddress)
+	ginApp.GET(apiAddress, helloWorldController.List)
 }

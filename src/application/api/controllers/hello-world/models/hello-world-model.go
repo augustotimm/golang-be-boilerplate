@@ -5,8 +5,8 @@ import (
 )
 
 type HelloWorldPresenter struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+	ID   string `json:"id" example:"ea68c913-2e60-487d-b108-26836271e500"`
+	Name string `json:"name" example:"jon doew"`
 }
 
 func (presenter *HelloWorldPresenter) InitFromModel(entity models.HelloWorldEntity) {

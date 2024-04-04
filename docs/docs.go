@@ -22,14 +22,86 @@ const docTemplate = `{
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
-    "paths": {}
+    "paths": {
+        "/health-check": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Shows information if api is running",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/healthCheckController.HealthCheck"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/hello-world": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Simple list data example",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.HelloWorldPresenter"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "healthCheckController.HealthCheck": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Server running!"
+                }
+            }
+        },
+        "models.HelloWorldPresenter": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "example": "ea68c913-2e60-487d-b108-26836271e500"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "jon doew"
+                }
+            }
+        }
+    }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "localhost:1337",
-	BasePath:         "/api/v1",
+	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Backend BoilerPlate",
 	Description:      "A complete boilerplate in golang using gin framework",

@@ -5,5 +5,5 @@ import (
 )
 
 type HealthCheck struct {
-	Message string `json:"message"`
+	Message string `json:"message" example:"Server running!"`
 }

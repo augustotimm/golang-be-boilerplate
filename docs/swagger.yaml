@@ -1,4 +1,19 @@
-basePath: /api/v1
+definitions:
+  healthCheckController.HealthCheck:
+    properties:
+      message:
+        example: Server running!
+        type: string
+    type: object
+  models.HelloWorldPresenter:
+    properties:
+      id:
+        example: ea68c913-2e60-487d-b108-26836271e500
+        type: string
+      name:
+        example: jon doew
+        type: string
+    type: object
 host: localhost:1337
 info:
   contact:
@@ -11,5 +26,35 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Backend BoilerPlate
   version: "1.0"
-paths: {}
+paths:
+  /health-check:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/healthCheckController.HealthCheck'
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Shows information if api is running
+  /hello-world:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.HelloWorldPresenter'
+            type: array
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Simple list data example
 swagger: "2.0"
