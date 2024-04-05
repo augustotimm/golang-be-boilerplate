@@ -11,7 +11,7 @@ type HealthCheckController struct {
 	JsonPresenter presenters.JsonPresenter
 }
 
-// HealthCheck backend-boilerplate
+// GetIndex Health-check
 // @Summary Shows information if api is running
 // @Produce json
 // @Success 200 {object} models.HealthCheck
@@ -33,6 +33,6 @@ func Handler(
 	healthCheckController := HealthCheckController{
 		JsonPresenter: *jsonPresenter,
 	}
-	apiAddress := fmt.Sprintf("%s/hello-world", baseApiAddress)
+	apiAddress := fmt.Sprintf("%s/health-check", baseApiAddress)
 	ginApp.GET(apiAddress, healthCheckController.GetIndex)
 }

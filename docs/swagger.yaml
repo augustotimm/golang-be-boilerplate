@@ -5,6 +5,17 @@ definitions:
         example: Server running!
         type: string
     type: object
+  models.HelloWorldBodyInput:
+    description: Basic information to create a new entity
+    properties:
+      name:
+        example: ea68c913-2e60-487d-b108-26836271e500
+        maxLength: 40
+        minLength: 1
+        type: string
+    required:
+    - name
+    type: object
   models.HelloWorldPresenter:
     properties:
       id:
@@ -57,4 +68,24 @@ paths:
           schema:
             type: string
       summary: Simple list data example
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Input data to create new entity
+        in: body
+        name: hw
+        required: true
+        schema:
+          $ref: '#/definitions/models.HelloWorldBodyInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Simple Create entity example
 swagger: "2.0"

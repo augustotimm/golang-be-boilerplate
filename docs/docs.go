@@ -68,6 +68,37 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Simple Create entity example",
+                "parameters": [
+                    {
+                        "description": "Input data to create new entity",
+                        "name": "hw",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.HelloWorldBodyInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
             }
         }
     },
@@ -78,6 +109,21 @@ const docTemplate = `{
                 "message": {
                     "type": "string",
                     "example": "Server running!"
+                }
+            }
+        },
+        "models.HelloWorldBodyInput": {
+            "description": "Basic information to create a new entity",
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "maxLength": 40,
+                    "minLength": 1,
+                    "example": "ea68c913-2e60-487d-b108-26836271e500"
                 }
             }
         },
