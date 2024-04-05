@@ -50,7 +50,7 @@ func (hw HelloWorldController) List(ctx *gin.Context) {
 // @Accept  json
 // @Param hw body helloWorldModel.HelloWorldBodyInput true "Input data to create new entity"
 // @Success 201 "Created"
-// @Failure 400 {string} string
+// @Failure 400 {Object} gin.H
 // @Router /hello-world [post]
 func (hw HelloWorldController) CreateHelloWorld(c *gin.Context) {
 	body := middlewares.GetJsonBody[helloWorldModel.HelloWorldBodyInput](c)

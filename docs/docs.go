@@ -95,7 +95,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "type": "string"
+                            "type": "Object"
                         }
                     }
                 }
@@ -123,7 +123,7 @@ const docTemplate = `{
                     "type": "string",
                     "maxLength": 40,
                     "minLength": 1,
-                    "example": "ea68c913-2e60-487d-b108-26836271e500"
+                    "example": "Jonathan Doe"
                 }
             }
         },
@@ -136,7 +136,7 @@ const docTemplate = `{
                 },
                 "name": {
                     "type": "string",
-                    "example": "jon doew"
+                    "example": "jon doe"
                 }
             }
         }

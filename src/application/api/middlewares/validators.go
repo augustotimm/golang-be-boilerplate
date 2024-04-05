@@ -12,7 +12,7 @@ func ValidateJsonBody[BodyType any]() func(*gin.Context) {
 		err := c.ShouldBindJSON(&body)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
+			c.Abort()
 		}
 
 		c.Set("jsonBody", body)
